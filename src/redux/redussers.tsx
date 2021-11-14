@@ -1,59 +1,54 @@
 import { createReducer, combineReducers } from "@reduxjs/toolkit";
 import {currentSearch} from './actions';
-import {fetchSearch, fetchSearchSevenDays} from './operations'
+import { fetchSearch, fetchSearchSevenDays } from './operations';
+import {initialDailsState, initialHistoryState, initialDaysState} from './initialState'
+import { IDailsState, IHistoryState, IDaysState } from './interfaces';
 
 let firstRender = true;
 
-const initialDailsState = {
-    wind: {
-        speed: 0,
-        gust: 0,
-    },
-    date: 0,
-    name: 'Undefined city',
-    sys: {
-        sunrise: 0,
-        sunset: 0,
-    },
-    weather: [{
-        description: '',
-        main: '',
-        icon: '',
-    },],
-    main: {
-        temp: 0,
-        feels_like: 0,
-        humidity: 0,
-        pressure: 0,
-        temp_min: 0,
-        temp_max: 0,
-        grnd_level: 0,
-    }
+interface IName {
+    payload: string;
+};
+
+interface IHistory {
+    payload: IHistoryState;
+};
+
+interface IDails {
+    payload: IDailsState;
+}
+
+interface IDays {
+    payload: IDaysState;
+}
+
+interface IError {
+    payload: string | null;
 }
 
 const cityReducer = createReducer('minsk', {
-    [currentSearch]: (state, action) => {
+    [currentSearch]: (state: string, action: IName) => {
         return action.payload ? action.payload : state;
     },
 })
 
-const historyReducer = createReducer('', {
-    [fetchSearch.fulfilled]: (state, action) => {
+const historyReducer = createReducer(initialHistoryState, {
+    [fetchSearch.fulfilled]: (state: IHistory[], action: IHistory) => {
         if (firstRender) {
             firstRender = false;
             return state
         }
-        const dateNow = new Date().getTime();
+        const dateNow: number = new Date().getTime();
         return [{ ...action.payload, date: dateNow }, ...state].sort((a,b) => b.date - a.date)
     }
 })
 
 const ditailsWeatherReduccer = createReducer(initialDailsState, {
-    [fetchSearch.fulfilled]: (_, action) => action.payload
+    [fetchSearch.fulfilled]: (state: IDails, action: IDails) => action.payload
 });
 
-const weatherDaysReduccer = createReducer('', {
-    [fetchSearchSevenDays.fulfilled]: (_, action) => action.payload
+const weatherDaysReduccer = createReducer(initialDaysState, {
+    [fetchSearchSevenDays.fulfilled]: (state: IDays, action: IDays) => action.payload
 })
 
 const loading = createReducer(false, {
@@ -63,9 +58,9 @@ const loading = createReducer(false, {
 });
 
 const error = createReducer(null, {
-    [fetchSearch.rejected]: (_, action) => action.payload,
+    [fetchSearch.rejected]: (state: IError, action:IError) => action.payload,
     [fetchSearch.pending]: () => null,
-    [fetchSearchSevenDays.rejected]: (_, action) => action.payload,
+    [fetchSearchSevenDays.rejected]: (state: IError, action: IError) => action.payload,
     [fetchSearchSevenDays.pending]: () => null,
 });
 
