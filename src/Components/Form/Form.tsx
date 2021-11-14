@@ -8,14 +8,14 @@ import { toast } from 'react-toastify';
 import { validation } from 'service';
 
 export default function Form() {
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState<string>('');
     const navigate = useNavigate();
   
-    const handleOnChangeInput = event => {
+    const handleOnChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(event.currentTarget.value.toLowerCase());
     };
 
-    const onSubmitHandler = event => {
+    const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (search.trim() === '') {
@@ -27,7 +27,6 @@ export default function Form() {
             return
         } else {
             navigate(`/in/${search}`);                
-            // dispatch(currentSearch(search))
         }
         reset();
     };

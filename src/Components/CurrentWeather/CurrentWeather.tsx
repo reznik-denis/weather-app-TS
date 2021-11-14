@@ -2,11 +2,12 @@ import s from './currentWeather.module.css';
 import { ItemList } from 'Components/ItemList';
 import { timeConverter } from 'service';
 import { selectors } from '../../redux'
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
+import {ICurrentOne} from 'Components/interfases/ICurrentWeather.interface'
 
 
 export default function CurrentWeather() {
-    const { sys, main, wind, weather } = useSelector(selectors.getDitailsWeather);
+    const { sys, main, wind, weather }: ICurrentOne = useSelector(selectors.getDitailsWeather);
     return <div>
         <div className={s.box}>
             {main.temp && <p className={s.temp}>{main.temp > 0 ? `+${Math.round(main.temp)}` : Math.round(main.temp)}С</p>}

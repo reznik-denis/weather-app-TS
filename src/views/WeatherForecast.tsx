@@ -16,13 +16,13 @@ export default function WeatherForecast() {
     const { city } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const name = useSelector(selectors.getCityName);
+    const name: string = useSelector(selectors.getCityName);
     const history = useSelector(selectors.getHistory)
-    const loader = useSelector(selectors.getLoading);
+    const loader: boolean = useSelector(selectors.getLoading);
     
     useEffect(() => {
         if (name) {
-            if (name === city) {
+            if (name === city && city === undefined) {
                 return
             } else {
                 navigate(`/in/${city}`);

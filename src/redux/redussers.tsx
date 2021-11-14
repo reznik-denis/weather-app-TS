@@ -4,6 +4,33 @@ import {fetchSearch, fetchSearchSevenDays} from './operations'
 
 let firstRender = true;
 
+const initialDailsState = {
+    wind: {
+        speed: 0,
+        gust: 0,
+    },
+    date: 0,
+    name: 'Undefined city',
+    sys: {
+        sunrise: 0,
+        sunset: 0,
+    },
+    weather: [{
+        description: '',
+        main: '',
+        icon: '',
+    },],
+    main: {
+        temp: 0,
+        feels_like: 0,
+        humidity: 0,
+        pressure: 0,
+        temp_min: 0,
+        temp_max: 0,
+        grnd_level: 0,
+    }
+}
+
 const cityReducer = createReducer('minsk', {
     [currentSearch]: (state, action) => {
         return action.payload ? action.payload : state;
@@ -21,7 +48,7 @@ const historyReducer = createReducer('', {
     }
 })
 
-const ditailsWeatherReduccer = createReducer(null, {
+const ditailsWeatherReduccer = createReducer(initialDailsState, {
     [fetchSearch.fulfilled]: (_, action) => action.payload
 });
 

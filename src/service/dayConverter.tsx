@@ -1,11 +1,11 @@
-export function unixDay(data) {
+export function unixDay(data: number) {
     const a = new Date(data*1000);
     const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
     const dayOfWeek = days[a.getDay()];
     return dayOfWeek
 }
 
-export function unixHours(data) {
+export function unixHours(data: number) {
     const d = new Date(data * 1000);
     const hh = d.getHours();
     let h = hh;

@@ -7,7 +7,7 @@ import { SectionDays } from 'Components/WeatherDays';
 import { Loader } from 'Components/Loader';
 
 export default function Main() {
-    const loader = useSelector(selectors.getLoading);
+    const loader: boolean = useSelector(selectors.getLoading);
 
     return (<>
         {loader ? <Loader /> : (<>

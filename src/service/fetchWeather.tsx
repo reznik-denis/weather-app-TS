@@ -1,10 +1,9 @@
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+const KEY = '4092c7739033aaf55788405d99619a68';
+const URL = 'https://api.openweathermap.org/data/2.5/';
 
-
-export function fetchWeather(name) {
-    const KEY = '4092c7739033aaf55788405d99619a68';
-    const URL = 'https://api.openweathermap.org/data/2.5/';
+export function fetchWeather(name: string) {
     return fetch(`${URL}weather?q=${name}&appid=${KEY}&units=metric&lang=en`)
         .then(res => {
             if (res.ok) {
@@ -15,9 +14,7 @@ export function fetchWeather(name) {
         }).then(data => data);
 }
 
-export function fetchWeatherSevenDays(lat, lon) {
-    const KEY = '4092c7739033aaf55788405d99619a68';
-    const URL = 'https://api.openweathermap.org/data/2.5/';
+export function fetchWeatherSevenDays(lat: number, lon: number) {
     return fetch(`${URL}onecall?lat=${lat}&lon=${lon}&units=metric&lang=en&appid=${KEY}`)
         .then(res => {
             if (res.ok) {

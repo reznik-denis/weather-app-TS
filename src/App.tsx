@@ -9,13 +9,13 @@ import {Container} from 'Components/Container';
 import { selectors } from './redux';
 import { operation } from './redux';
 
-const Main = lazy(() => import('./views/Main.js' /* webpackChunkName: "main-view" */));
-const WeatherForecast = lazy(() => import('./views/WeatherForecast.js' /* webpackChunkName: "weatherForecast-view" */));
-const NoFoundPage = lazy(() => import('./views/NoFoundPage.js' /* webpackChunkName: "noFoundPage-view" */))
+const Main = lazy(() => import('./views/Main' /* webpackChunkName: "main-view" */));
+const WeatherForecast = lazy(() => import('./views/WeatherForecast' /* webpackChunkName: "weatherForecast-view" */));
+const NoFoundPage = lazy(() => import('./views/NoFoundPage' /* webpackChunkName: "noFoundPage-view" */))
 
 
 function App() {
-  const name = useSelector(selectors.getCityName);
+  const name: string = useSelector(selectors.getCityName);
   const currentFetch = useSelector(selectors.getDitailsWeather);
   const dispatch = useDispatch();
 

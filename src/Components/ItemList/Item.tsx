@@ -1,7 +1,17 @@
 import s from './item.module.css'
 import LazyLoad from 'react-lazyload';
 
-export default function ItemList({weather, temp}) {
+type Weather = {
+    description: string,
+    main: string,
+    icon: string
+}
+
+interface Props {
+    weather: Weather[];
+    temp?: number;
+}
+export default function ItemList({weather, temp}: Props) {
     const icon = `https://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
     return <>{temp && <p className={s.temp}>{temp > 0 ? `+${Math.round(temp)}` : Math.round(temp)}C</p>}
             {weather[0].description && <div className={s.flex}>

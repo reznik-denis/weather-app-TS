@@ -1,4 +1,4 @@
-export default function timeConverter(UNIX_timestamp){
+export default function timeConverter(UNIX_timestamp: number){
   const a = new Date(UNIX_timestamp * 1000);
   const hour = a.getHours();
   const min = a.getMinutes();
